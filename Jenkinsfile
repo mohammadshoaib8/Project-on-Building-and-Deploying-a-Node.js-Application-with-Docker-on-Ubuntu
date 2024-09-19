@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build'){
             steps{
-                sh 'sudo docker build . -t msshoaib2255457/myapp:latest'
+                sh 'echo "177y1a0464" | sudo -S docker build . -t msshoaib2255457/myapp:latest'
             }
         }
         stage('Test image') {
