@@ -32,7 +32,7 @@ pipeline {
                 sh 'sudo docker rm nodetodoapp || true'
                 sh 'sudo docker run -d --name nodetodoapp basanagoudapatil/nodo-todo-app-test:latest'
                 sh '''
-                ssh -i Ubuntudemo.pem -o StrictHostKeyChecking=no ubuntu@44.211.144.201 <<EOF
+                ssh -i "slavekey.pem" ubuntu@ec2-54-254-143-38.ap-southeast-1.compute.amazonaws.com <<EOF
                 sudo docker login -u basanagoudapatil -p dckr_pat_OvN0lH_USJztUCkm0opyjz-yXNc
                 sudo docker pull basanagoudapatil/nodo-todo-app-test:latest
                 sudo docker stop nodetodoapp || true
