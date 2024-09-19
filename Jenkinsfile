@@ -9,20 +9,20 @@ pipeline {
         }
         stage('Build'){
             steps{
-                sh 'sudo docker build . -t basanagoudapatil/nodo-todo-app-test:latest'
+                sh 'sudo docker build . -t msshoaib2255457/myapp:latest'
             }
         }
         stage('Test image') {
             steps {
                 echo 'testing...'
-                sh 'sudo docker inspect --type=image basanagoudapatil/nodo-todo-app-test:latest '
+                sh 'sudo docker inspect --type=image msshoaib2255457/myapp:latest '
             }
         }
         
         stage('Push'){
             steps{
-        	     sh "sudo docker login -u basanagoudapatil -p dckr_pat_OvN0lH_USJztUCkm0opyjz-yXNc"
-                 sh 'sudo docker push basanagoudapatil/nodo-todo-app-test:latest'
+        	     sh "sudo docker login -u ms.shoaib2255@gmail.com -p 177y1a0464"
+                 sh 'sudo docker push msshoaib2255457/myapp:latest'
             }
         }  
         stage('Deploy'){
@@ -30,14 +30,14 @@ pipeline {
                 echo 'deploying on another server'
                 sh 'sudo docker stop nodetodoapp || true'
                 sh 'sudo docker rm nodetodoapp || true'
-                sh 'sudo docker run -d --name nodetodoapp basanagoudapatil/nodo-todo-app-test:latest'
+                sh 'sudo docker run -d --name nodetodoapp msshoaib2255457/myapp:latest'
                 sh '''
                 ssh -i "slavekey.pem" ubuntu@ec2-54-254-143-38.ap-southeast-1.compute.amazonaws.com <<EOF
-                sudo docker login -u basanagoudapatil -p dckr_pat_OvN0lH_USJztUCkm0opyjz-yXNc
-                sudo docker pull basanagoudapatil/nodo-todo-app-test:latest
+                sudo docker login -u ms.shoaib2255@gmail.com -p 177y1a0464
+                sudo docker pull msshoaib2255457/myapp:latest
                 sudo docker stop nodetodoapp || true
                 sudo docker rm nodetodoapp || true 
-                sudo docker run -d --name nodetodoapp basanagoudapatil/nodo-todo-app-test:latest
+                sudo docker run -d --name nodetodoapp msshoaib2255457/myapp:latest
                 '''
             }
         }
